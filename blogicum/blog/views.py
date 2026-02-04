@@ -1,6 +1,9 @@
+# Стандартные библиотеки
+from typing import List, Dict, Any
+
+# Сторонние библиотеки
 from django.shortcuts import render
 from django.http import Http404
-from typing import List, Dict, Any
 
 
 PostType = Dict[str, Any]
@@ -55,14 +58,14 @@ def index(request):
     return render(
         request,
         'blog/index.html',
-        {'posts': list(posts_dict.values())}
+        {'posts': posts}
     )
 
 
 def post_detail(request, post_id):
     """Страница просмотра поста."""
     if post_id not in posts_dict:
-        raise Http404
+        raise Http404('Пост с указанным ID не найден.')
     post = posts_dict[post_id]
     return render(
         request,
